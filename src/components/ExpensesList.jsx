@@ -268,7 +268,7 @@ function ExpensesList({ items, onDeleteExpense, onEditExpense }) {
                       className="w-full border rounded-xl px-3 py-2 bg-[#181C14] text-white appearance-none hover:border-green-600 focus:outline-none pr-8"
                     >
                       {categories.map((cat) => (
-                        <option key={cat} value={cat} className="text-black">
+                        <option key={cat} value={cat} className="text-white">
                           {cat}
                         </option>
                       ))}
