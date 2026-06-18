@@ -26,7 +26,7 @@ function ExpensesPieChart({ expenses }) {
               nameKey="name"
               cx="50%"
               cy="50%"
-              outerRadius="70%"
+              outerRadius="55%"
               fill="#8884d8"
               dataKey="value"
               label={({ percent }) => ` ${(percent * 100).toFixed(2)}%`}
