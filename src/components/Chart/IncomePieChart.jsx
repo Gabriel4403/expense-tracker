@@ -26,7 +26,7 @@ function IncomePieChart({ expenses }) {
               nameKey="name"
               cx="50%"
               cy="50%"
-              outerRadius={130}
+              outerRadius="70%"
               fill="#82ca9d"
               dataKey="value"
               label={({ percent }) => ` ${(percent * 100).toFixed(2)}%`}
