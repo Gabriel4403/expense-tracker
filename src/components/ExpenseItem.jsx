@@ -13,7 +13,7 @@ function ExpenseItem({ date, title, amount, category, type }) {
           </div>
         </div>
         <div
-          className={`self-stretch sm:self-auto text-center text-white text-base font-bold border border-white p-2 rounded-[12px] sm:text-xl sm:px-6 sm:py-2
+          className={`self-center sm:self-auto text-center text-white text-base font-bold border border-white p-2 px-4 rounded-[12px] sm:text-xl sm:px-6 sm:py-2
   ${type === "Income" ? "bg-green-700" : "bg-red-700"}`}
         >
           ${amount}

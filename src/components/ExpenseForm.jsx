@@ -98,12 +98,12 @@ function ExpenseForm({ onSaveExpenseData, setBalance }) {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="h-full bg-[#181C14] border-2 border-[#181C14] rounded-3xl shadow-xl flex items-center justify-center"
+        className="h-full bg-[#181C14] border-2 border-[#181C14] py-3  rounded-2xl shadow-xl flex items-center justify-center"
       >
         <button
           type="button"
           onClick={() => setShowForm(true)}
-          className="border-2 border-white rounded-3xl cursor-pointer text-2xl px-8 py-3 font-bold text-white hover:bg-green-900 transition hover:border-green-950"
+          className="border-2 border-white rounded-3xl cursor-pointer text-2xl px- py-3 font-bold text-white hover:bg-green-900 transition hover:border-green-950"
         >
           + Add Record
         </button>
