@@ -4,7 +4,7 @@ import Card from "./Card";
 function ExpenseItem({ date, title, amount, category, type }) {
   return (
     <div>
-      <Card className="flex justify-between items-center p-2 my-4 bg-[#4b4b4b]">
+      <Card className="flex justify-between items-center p-2 my-4 bg-[#4b4b4b] hover:bg-[#323131] transition-colors">
         <ExpenseDate date={date} />
         <div className="flex flex-col-reverse gap-4 items-end justify-start flex-1 sm:flex-row sm:items-center">
           <h2 className="text-white text-base flex-1 mx-4 sm:text-xl">

@@ -9,7 +9,6 @@ function ExpensesList({ items, onDeleteExpense, onEditExpense }) {
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [visibleCount, setVisibleCount] = useState(5);
 
   // Edit form state
   const [editTitle, setEditTitle] = useState("");
@@ -17,8 +16,6 @@ function ExpensesList({ items, onDeleteExpense, onEditExpense }) {
   const [editCategory, setEditCategory] = useState("");
   const [editDate, setEditDate] = useState("");
   const [editType, setEditType] = useState("");
-
-  const visibleItems = items.slice(0, visibleCount);
 
   const expenseCategories = [
     "Food & Drinks",
@@ -95,44 +92,27 @@ function ExpensesList({ items, onDeleteExpense, onEditExpense }) {
 
   return (
     <>
-      <motion.ul className="space-y-4">
-        <AnimatePresence>
-          {visibleItems.map((expense) => (
-            <motion.li
-              key={expense.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              onClick={() => {
-                setSelectedExpense(expense);
-                setIsEditing(false);
-              }}
-              className="cursor-pointer hover:bg-white/10 transition-colors rounded-lg"
-            >
-              <ExpenseItem {...expense} />
-            </motion.li>
-          ))}
-        </AnimatePresence>
-      </motion.ul>
-
-      <div className="flex flex-col gap-2 mt-4">
-        {visibleCount < items.length && (
-          <button
-            onClick={() => setVisibleCount((prev) => prev + 5)}
-            className="w-full py-2 border rounded-3xl text-white font-semibold hover:bg-green-900 hover:border-green-950 transition"
-          >
-            Load More
-          </button>
-        )}
-        {visibleCount > 5 && (
-          <button
-            onClick={() => setVisibleCount(5)}
-            className="w-full py-2 border rounded-3xl text-white font-semibold hover:bg-red-900 hover:border-red-950 transition"
-          >
-            Show Less
-          </button>
-        )}
+      <div className="max-h-[28rem] overflow-y-auto pr-2">
+        <motion.ul className="space-y-4">
+          <AnimatePresence>
+            {items.map((expense) => (
+              <motion.li
+                key={expense.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+                onClick={() => {
+                  setSelectedExpense(expense);
+                  setIsEditing(false);
+                }}
+                className="cursor-pointer hover:bg-white/10 transition-colors rounded-lg"
+              >
+                <ExpenseItem {...expense} />
+              </motion.li>
+            ))}
+          </AnimatePresence>
+        </motion.ul>
       </div>
 
       {/* Delete / Edit choice modal */}
@@ -160,20 +140,20 @@ function ExpensesList({ items, onDeleteExpense, onEditExpense }) {
               <div className="flex justify-end space-x-3">
                 <button
                   onClick={closeAll}
-                  className="px-4 py-2 border rounded-lg hover:bg-gray-700 transition-colors"
+                  className="px-4 py-2 border rounded-lg cursor-pointer hover:bg-green-900 hover:border-green-950 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={openEdit}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="px-4 py-2 text-white border  cursor-pointer rounded-lg hover:bg-blue-700 hover:border-blue-900 transition-colors"
                 >
                   Edit
                 </button>
                 <button
                   onClick={handleDelete}
                   disabled={isDeleting}
-                  className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors disabled:opacity-50"
+                  className="px-4 py-2  text-white border rounded-lg cursor-pointer hover:bg-red-700 hover:border-red-800 transition-colors disabled:opacity-50"
                 >
                   {isDeleting ? "Deleting..." : "Delete"}
                 </button>
@@ -230,24 +210,24 @@ function ExpensesList({ items, onDeleteExpense, onEditExpense }) {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-400 mb-1">
+                  <label className="block text-sm  text-gray-400 mb-1">
                     Date
                   </label>
                   <DatePicker
                     selected={editDate}
                     onChange={(date) => setEditDate(date)}
-                    className="w-full border rounded-xl px-3 py-2 bg-transparent text-white hover:border-green-600 focus:outline-none"
+                    className="w-full border rounded-xl px-3 py-2 cursor-pointer bg-transparent text-white hover:border-green-600 focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-400 mb-1">
+                  <label className="block text-sm  text-gray-400 mb-1">
                     Type
                   </label>
                   <div className="relative">
                     <select
                       value={editType}
                       onChange={(e) => setEditType(e.target.value)}
-                      className="w-full border rounded-xl px-3 py-2 bg-[#181C14] text-white appearance-none hover:border-green-600 focus:outline-none pr-8"
+                      className="w-full border rounded-xl px-3 py-2 cursor-pointer bg-[#181C14] text-white appearance-none hover:border-green-600 focus:outline-none pr-8"
                     >
                       <option value="Income">Income</option>
                       <option value="Expense">Expense</option>
@@ -265,7 +245,7 @@ function ExpensesList({ items, onDeleteExpense, onEditExpense }) {
                     <select
                       value={editCategory}
                       onChange={(e) => setEditCategory(e.target.value)}
-                      className="w-full border rounded-xl px-3 py-2 bg-[#181C14] text-white appearance-none hover:border-green-600 focus:outline-none pr-8"
+                      className="w-full border rounded-xl px-3 py-2 bg-[#181C14] cursor-pointer text-white appearance-none hover:border-green-600 focus:outline-none pr-8"
                     >
                       {categories.map((cat) => (
                         <option key={cat} value={cat} className="text-white">
@@ -284,14 +264,14 @@ function ExpensesList({ items, onDeleteExpense, onEditExpense }) {
                 <button
                   onClick={closeAll}
                   disabled={isSaving}
-                  className="px-4 py-2 border rounded-lg hover:bg-gray-700 transition-colors disabled:opacity-50"
+                  className="px-4 py-2 border rounded-lg cursor-pointer hover:bg-red-700 hover:border-red-800 transition-colors disabled:opacity-50"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleSaveEdit}
                   disabled={isSaving}
-                  className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
+                  className="px-4 py-2  text-white rounded-lg border cursor-pointer hover:bg-green-900 hover:border-green-950 transition-colors disabled:opacity-50"
                 >
                   {isSaving ? "Saving..." : "Save Changes"}
                 </button>

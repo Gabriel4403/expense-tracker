@@ -22,7 +22,7 @@ function ExpensesCtgFilter(props) {
         <label>Filter by Category</label>
         <div className="relative inline-block">
           <select
-            className="border rounded-3xl px-4 pr-8 text-center appearance-none hover:border-green-600 bg-transparent"
+            className="border rounded-3xl px-4 pr-8 cursor-pointer text-center appearance-none hover:border-green-600 bg-transparent"
             onChange={filterCategoryHandler}
             value={props.selected}
           >

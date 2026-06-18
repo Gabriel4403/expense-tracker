@@ -3,12 +3,19 @@ import Expenses from "./components/Expenses";
 import Header from "./components/Header";
 import BalanceContainer from "./components/BalanceContainer";
 import OtherDetails from "./components/OtherDetails";
+import NotificationToast from "./components/NotificationToast.jsx"
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 function App() {
   const [expenses, setExpenses] = useState([]);
   const [balance, setBalance] = useState(null);
+  const [toast, setToast] = useState({ show: false, message: "" });
+
+  function showToast(message) {
+    setToast({ show: true, message });
+    setTimeout(() => setToast({ show: false, message: "" }), 2500);
+  }
 
   useEffect(() => {
     fetch(`${API_URL}/api/expenses`)
@@ -32,6 +39,7 @@ function App() {
 
   function addExpenseHandler(newExpense) {
     setExpenses((prev) => [newExpense, ...prev]);
+    showToast("Record added successfully!");
   }
 
   function handleDeleteExpense(id) {
@@ -46,6 +54,7 @@ function App() {
           ? prev - expense.amount
           : prev + expense.amount
       );
+      showToast("Record deleted successfully!");
     });
   }
 
@@ -68,6 +77,7 @@ function App() {
         else newBalance -= updatedExpense.amount;
         return newBalance;
       });
+      showToast("Record updated successfully!");
     });
   }
 
@@ -85,6 +95,7 @@ function App() {
         onEditExpense={handleEditExpense}
       />
       <OtherDetails expenses={expenses} />
+      <NotificationToast show={toast.show} message={toast.message} />
     </>
   );
 }

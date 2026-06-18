@@ -103,12 +103,12 @@ function ExpenseForm({ onSaveExpenseData, setBalance }) {
         <button
           type="button"
           onClick={() => setShowForm(true)}
-          className="border-2 border-white rounded-3xl text-2xl px-8 py-3 font-bold text-white hover:bg-green-900 transition hover:border-green-950"
+          className="border-2 border-white rounded-3xl cursor-pointer text-2xl px-8 py-3 font-bold text-white hover:bg-green-900 transition hover:border-green-950"
         >
           + Add Record
         </button>
       </motion.div>
-      {/* Modal overlay */}
+      {/* Form Modal overlay */}
       <AnimatePresence>
         {showForm && (
           <motion.div
@@ -116,7 +116,7 @@ function ExpenseForm({ onSaveExpenseData, setBalance }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={closeFormHandler} // click outside to close
+            onClick={closeFormHandler} 
           >
             <motion.div
               className="bg-[#181C14] border-2 border-white text-white rounded-3xl shadow-xl p-8 w-full max-w-lg"
@@ -168,24 +168,24 @@ function ExpenseForm({ onSaveExpenseData, setBalance }) {
                     selected={enteredDate}
                     onChange={dateHandler}
                     placeholderText="Select a date"
-                    className="w-full border rounded-xl px-3 py-2 bg-transparent text-white hover:border-green-600 focus:outline-none placeholder-gray-500"
+                    className="w-full border rounded-xl cursor-pointer px-3 py-2 bg-transparent text-white hover:border-green-600 focus:outline-none placeholder-gray-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-400 mb-1">
+                  <label className="block text-sm  text-gray-400 mb-1">
                     Type
                   </label>
                   <div className="relative">
                     <select
                       value={enteredType}
                       onChange={typeHandler}
-                      className={`w-full border rounded-xl px-3 py-2 bg-[#181C14] appearance-none hover:border-green-600 focus:outline-none pr-8
+                      className={`w-full border rounded-xl px-3 py-2 cursor-pointer bg-[#181C14] appearance-none hover:border-green-600 focus:outline-none pr-8
                         ${enteredType === "" ? "text-gray-500" : "text-white"}`}
                     >
-                      <option value="" disabled hidden>
+                      <option value=""  disabled hidden>
                         Select Type
                       </option>
-                      <option className="text-white" value="Income">
+                      <option className="text-white"  value="Income">
                         Income
                       </option>
                       <option className="text-white" value="Expense">
@@ -205,7 +205,7 @@ function ExpenseForm({ onSaveExpenseData, setBalance }) {
                     <select
                       value={enteredCategory}
                       onChange={categoryHandler}
-                      className={`w-full border rounded-xl px-3 py-2 bg-[#181C14] appearance-none hover:border-green-600 focus:outline-none pr-8
+                      className={`w-full border rounded-xl px-3 py-2 cursor-pointer bg-[#181C14] appearance-none hover:border-green-600 focus:outline-none pr-8
                         ${enteredCategory === "" ? "text-gray-500" : "text-white"}`}
                     >
                       <option className="text-white" value="" disabled hidden>
@@ -232,7 +232,7 @@ function ExpenseForm({ onSaveExpenseData, setBalance }) {
                 <button
                   type="button"
                   onClick={closeFormHandler}
-                  className="text-white font-semibold border rounded-3xl px-8 py-2 hover:bg-red-700 hover:border-red-800 transition"
+                  className="text-white font-semibold border cursor-pointer rounded-3xl px-8 py-2 hover:bg-red-700 hover:border-red-800 transition"
                 >
                   Cancel
                 </button>
@@ -240,7 +240,7 @@ function ExpenseForm({ onSaveExpenseData, setBalance }) {
                   type="button"
                   disabled={isSubmitting}
                   onClick={submitExpenseHandler}
-                  className={`text-white font-semibold border rounded-3xl px-8 py-2 hover:bg-green-900 hover:border-green-950 transition ${
+                  className={`text-white font-semibold border rounded-3xl cursor-pointer px-8 py-2 hover:bg-green-900 hover:border-green-950 transition ${
                     isSubmitting ? "opacity-50 cursor-not-allowed" : ""
                   }`}
                 >

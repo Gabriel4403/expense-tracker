@@ -3,25 +3,31 @@ const fs = require('fs');
 const cors = require('cors');
 const app = express();
 
+
 app.use(cors({ origin: process.env.ALLOWED_ORIGIN || '*' }));
+
 app.use(express.json());
 
+
 const DATA_FILE = './data.json';
+
 
 function readData() {
   const data = fs.readFileSync(DATA_FILE, 'utf-8');
   return JSON.parse(data);
 }
 
+
 function writeData(data) {
   fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
 }
 
-// Initialize data file if it doesn't exist
+
 if (!fs.existsSync(DATA_FILE)) {
   writeData({ wallet: 0, expenses: [] });
 }
 
+// GET all expenses 
 app.get('/api/expenses', (req, res) => {
   try {
     const data = readData();
@@ -31,11 +37,13 @@ app.get('/api/expenses', (req, res) => {
   }
 });
 
+// Add a new income or expense entry and update the wallet
 app.post('/api/expenses', (req, res) => {
   try {
     const newEntry = { ...req.body };
     const data = readData();
 
+    
     if (newEntry.type === 'Income') {
       data.wallet += newEntry.amount;
     } else if (newEntry.type === 'Expense') {
@@ -51,6 +59,7 @@ app.post('/api/expenses', (req, res) => {
   }
 });
 
+// GET the current wallet balance
 app.get('/api/wallet', (req, res) => {
   try {
     const data = readData();
@@ -60,6 +69,7 @@ app.get('/api/wallet', (req, res) => {
   }
 });
 
+// Manually overwrite the wallet balance 
 app.put('/api/wallet', (req, res) => {
   try {
     const { balance } = req.body;
@@ -72,6 +82,7 @@ app.put('/api/wallet', (req, res) => {
   }
 });
 
+// Edit an existing expense/income entry
 app.put('/api/expenses/:id', (req, res) => {
   try {
     const { id } = req.params;
@@ -83,12 +94,15 @@ app.put('/api/expenses/:id', (req, res) => {
 
     const old = data.expenses[index];
 
+   
     if (old.type === 'Income') data.wallet -= old.amount;
     else data.wallet += old.amount;
 
+    
     if (updatedEntry.type === 'Income') data.wallet += updatedEntry.amount;
     else data.wallet -= updatedEntry.amount;
 
+    
     data.expenses[index] = { ...old, ...updatedEntry };
     writeData(data);
 
@@ -98,6 +112,7 @@ app.put('/api/expenses/:id', (req, res) => {
   }
 });
 
+// Delete an entry and reverse its effect on the wallet balance
 app.delete('/api/expenses/:id', (req, res) => {
   try {
     const { id } = req.params;
@@ -108,8 +123,10 @@ app.delete('/api/expenses/:id', (req, res) => {
       return res.status(404).json({ error: 'Expense not found' });
     }
 
+    
     const [deletedExpense] = data.expenses.splice(expenseIndex, 1);
 
+    
     if (deletedExpense.type === 'Income') {
       data.wallet -= deletedExpense.amount;
     } else {
@@ -122,6 +139,7 @@ app.delete('/api/expenses/:id', (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {

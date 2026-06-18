@@ -34,15 +34,15 @@ function Wallet({ balance, setBalance }) {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="h-full p-8 rounded-2xl bg-[#181C14] border-2 border-[#181C14] text-white text-center shadow-xl flex flex-col items-center justify-center"
+      className="h-full p-4 sm:p-8 rounded-2xl bg-[#181C14] border-2 border-[#181C14] text-white text-center shadow-xl flex flex-col items-center justify-center"
     >
-      <h2 className="text-4xl font-bold mb-6">Wallet Balance</h2>
+      <h2 className="text-2xl sm:text-4xl font-bold mb-4 sm:mb-6">Wallet Balance</h2>
 
       {balance !== null && balance !== undefined && balance !== "" ? (
         // Balance exists — show it, click to edit
         <div
           onClick={openBalanceChanger}
-          className="border-2 rounded-2xl text-center px-20 py-10 text-4xl hover:border-green-600 cursor-pointer transition"
+          className="border-2 rounded-2xl text-center px-6 sm:px-20 py-5 sm:py-10 text-2xl sm:text-4xl hover:border-green-600 cursor-pointer transition"
         >
           ${balance}
         </div>
@@ -50,7 +50,7 @@ function Wallet({ balance, setBalance }) {
         // No balance set yet — show set balance button
         <button
           onClick={openBalanceChanger}
-          className="border-2 border-white rounded-3xl text-xl px-8 py-3 font-bold text-white hover:bg-green-900 hover:border-green-950 transition"
+          className="border-2 border-white rounded-3xl text-lg sm:text-xl px-6 sm:px-8 py-2 sm:py-3 font-bold text-white hover:bg-green-900 hover:border-green-950 transition"
         >
           Set Initial Balance
         </button>

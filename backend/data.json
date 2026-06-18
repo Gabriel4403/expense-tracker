@@ -1,5 +1,5 @@
 {
-  "wallet": 2420,
+  "wallet": 2320,
   "expenses": [
     {
       "id": "1750251524258-6345",
@@ -112,22 +112,6 @@
       "category": "Other Income",
       "type": "Income",
       "date": "2026-03-29T21:00:00.000Z"
-    },
-    {
-      "id": "1778140429134-4793",
-      "title": "Test23",
-      "amount": 200,
-      "category": "Salary",
-      "type": "Income",
-      "date": "2026-05-06T21:00:00.000Z"
-    },
-    {
-      "id": "1778140447462-2639",
-      "title": "Test24",
-      "amount": 100,
-      "category": "Shopping",
-      "type": "Expense",
-      "date": "2026-05-08T21:00:00.000Z"
     }
   ]
 }

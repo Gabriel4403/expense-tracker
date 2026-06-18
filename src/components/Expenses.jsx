@@ -40,7 +40,7 @@ function Expenses({ items, onDeleteExpense, onEditExpense }) {
       <div className="flex justify-center gap-4 mt-6">
         <button
           onClick={() => setActiveData("expenses")}
-          className={`text-white font-semibold px-6 py-2 rounded-3xl border transition ${
+          className={`text-white font-semibold cursor-pointer px-6 py-2 rounded-3xl border transition ${
             activeData === "expenses"
               ? "bg-red-700 border-red-900"
               : "hover:bg-red-900 hover:border-red-950"
@@ -50,7 +50,7 @@ function Expenses({ items, onDeleteExpense, onEditExpense }) {
         </button>
         <button
           onClick={() => setActiveData("income")}
-          className={`text-white font-semibold px-6 py-2 rounded-3xl border transition ${
+          className={`text-white font-semibold cursor-pointer px-6 py-2 rounded-3xl border transition ${
             activeData === "income"
               ? "bg-green-700 border-green-900"
               : "hover:bg-green-900 hover:border-green-950"
@@ -64,7 +64,7 @@ function Expenses({ items, onDeleteExpense, onEditExpense }) {
       <div className="flex justify-center gap-4 mt-3">
         <button
           onClick={() => setActiveChart("pie")}
-          className={`text-white text-sm font-semibold px-5 py-1.5 rounded-3xl border transition ${
+          className={`text-white text-sm font-semibold cursor-pointer px-5 py-1.5 rounded-3xl border transition ${
             activeChart === "pie"
               ? "bg-blue-700 border-blue-900"
               : "hover:bg-blue-900 hover:border-blue-950"
@@ -74,7 +74,7 @@ function Expenses({ items, onDeleteExpense, onEditExpense }) {
         </button>
         <button
           onClick={() => setActiveChart("bar")}
-          className={`text-white text-sm font-semibold px-5 py-1.5 rounded-3xl border transition ${
+          className={`text-white text-sm font-semibold cursor-pointer px-5 py-1.5 rounded-3xl border transition ${
             activeChart === "bar"
               ? "bg-blue-700 border-blue-900"
               : "hover:bg-blue-900 hover:border-blue-950"

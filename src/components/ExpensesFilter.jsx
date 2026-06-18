@@ -11,7 +11,7 @@ function ExpensesFilterYear(props) {
         <label>Filter by Year</label>
         <div className="relative inline-block">
           <select
-            className="border rounded-3xl px-4 pr-8 text-center appearance-none hover:border-green-600 bg-transparent [text-align-last:center]"
+            className="border rounded-3xl px-4 pr-8 text-center cursor-pointer appearance-none hover:border-green-600 bg-transparent [text-align-last:center]"
             onChange={filterYearHandler}
             value={props.selected}
           >
