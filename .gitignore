@@ -23,3 +23,7 @@ backend/node_modules
 *.njsproj
 *.sln
 *.sw?
+.env
+.env.production
+backend/.env
+backend/node_modules
