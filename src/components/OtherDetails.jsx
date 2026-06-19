@@ -1,5 +1,5 @@
 import CashflowChart from "./Chart/CashFlowChart";
-import TopExpensesChart from "./Chart/TopExpenses";
+import TopExpensesChart from "./Chart/TopExpensesChart";
 
 // Bottom section of the app showing the cashflow bar chart and top spending card side by side
 // Stacks vertically on mobile, side by side on sm: and above
@@ -10,7 +10,7 @@ export default function OtherDetails({ expenses }) {
         <CashflowChart expenses={expenses} />
       </div>
       <div className="flex-1">
-        <TopExpenses expenses={expenses} />
+        <TopExpensesChart expenses={expenses} />
       </div>
     </div>
   );
