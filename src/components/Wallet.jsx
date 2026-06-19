@@ -3,10 +3,13 @@ import { AnimatePresence, motion } from "motion/react";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
+// Displays the current wallet balance and allows the user to set or change it
+// Clicking the balance opens a modal to enter a new value
 function Wallet({ balance, setBalance }) {
   const [isChangingBalance, setIsChangingBalance] = useState(false);
   const [inputBalance, setInputBalance] = useState("");
 
+  // Pre-fill the input with the current balance when opening the modal
   function openBalanceChanger() {
     setInputBalance(balance ? balance.toString() : "");
     setIsChangingBalance(true);
@@ -16,6 +19,7 @@ function Wallet({ balance, setBalance }) {
     setInputBalance(event.target.value);
   }
 
+  // Save the new balance locally and persist it to the backend
   function applyBalanceChange() {
     const newBalance = parseFloat(inputBalance);
     if (!isNaN(newBalance)) {
@@ -56,7 +60,7 @@ function Wallet({ balance, setBalance }) {
         </button>
       )}
 
-      {/* Modal */}
+      {/* Balance change modal — clicking outside closes it */}
       <AnimatePresence>
         {isChangingBalance && (
           <motion.div
@@ -72,11 +76,12 @@ function Wallet({ balance, setBalance }) {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ duration: 0.3 }}
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e) => e.stopPropagation()} // prevent close when clicking inside
             >
               <h3 className="text-2xl font-bold text-center mb-6">
                 {balance ? "Change Balance" : "Set Initial Balance"}
               </h3>
+              {/* Spinner buttons hidden via CSS for cleaner number input */}
               <input
                 className="w-full border rounded-2xl text-center px-4 py-3 bg-transparent text-white text-xl hover:border-green-600 focus:outline-none
                   [&::-webkit-outer-spin-button]:appearance-none

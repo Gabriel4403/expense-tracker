@@ -1,10 +1,11 @@
 import { useRef, useEffect } from 'react';
 
+// Modal that displays a success/info message and auto-closes after 5 seconds
 function AddExpenseModal({ onClose, message }) {
 
   const modalContentRef = useRef(null);
 
-
+  // Auto-close the modal after 5 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
       onClose();
@@ -13,7 +14,7 @@ function AddExpenseModal({ onClose, message }) {
     return () => clearTimeout(timer);
   }, [onClose]); 
 
-  
+  // Close the modal when clicking outside of it
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (modalContentRef.current && !modalContentRef.current.contains(e.target)) {

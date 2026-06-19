@@ -4,7 +4,9 @@ import ExpenseItem from "./ExpenseItem";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+// Scrollable list of expense/income items with click-to-edit and click-to-delete functionality
 function ExpensesList({ items, onDeleteExpense, onEditExpense }) {
+  // Tracks which expense the user clicked on
   const [selectedExpense, setSelectedExpense] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -17,6 +19,7 @@ function ExpensesList({ items, onDeleteExpense, onEditExpense }) {
   const [editDate, setEditDate] = useState("");
   const [editType, setEditType] = useState("");
 
+  // Category options change depending on whether the type is Income or Expense
   const expenseCategories = [
     "Food & Drinks",
     "Shopping",
@@ -34,6 +37,7 @@ function ExpensesList({ items, onDeleteExpense, onEditExpense }) {
   const categories =
     editType === "Income" ? incomeCategories : expenseCategories;
 
+  // Pre-fill the edit form with the selected expense's current values
   function openEdit() {
     setEditTitle(selectedExpense.title);
     setEditAmount(selectedExpense.amount);
@@ -43,6 +47,7 @@ function ExpensesList({ items, onDeleteExpense, onEditExpense }) {
     setIsEditing(true);
   }
 
+  // Close all modals and deselect the current expense
   function closeAll() {
     setSelectedExpense(null);
     setIsEditing(false);
@@ -92,6 +97,7 @@ function ExpensesList({ items, onDeleteExpense, onEditExpense }) {
 
   return (
     <>
+      {/* Fixed-height scrollable container for the expense list */}
       <div className="max-h-[28rem] overflow-y-auto pr-2">
         <motion.ul className="space-y-4">
           <AnimatePresence>
@@ -115,7 +121,7 @@ function ExpensesList({ items, onDeleteExpense, onEditExpense }) {
         </motion.ul>
       </div>
 
-      {/* Delete / Edit choice modal */}
+      {/* Delete / Edit choice modal — shown when an expense is clicked */}
       <AnimatePresence>
         {selectedExpense && !isEditing && (
           <motion.div
@@ -146,14 +152,14 @@ function ExpensesList({ items, onDeleteExpense, onEditExpense }) {
                 </button>
                 <button
                   onClick={openEdit}
-                  className="px-4 py-2 text-white border  cursor-pointer rounded-lg hover:bg-blue-700 hover:border-blue-900 transition-colors"
+                  className="px-4 py-2 text-white border cursor-pointer rounded-lg hover:bg-blue-700 hover:border-blue-900 transition-colors"
                 >
                   Edit
                 </button>
                 <button
                   onClick={handleDelete}
                   disabled={isDeleting}
-                  className="px-4 py-2  text-white border rounded-lg cursor-pointer hover:bg-red-700 hover:border-red-800 transition-colors disabled:opacity-50"
+                  className="px-4 py-2 text-white border rounded-lg cursor-pointer hover:bg-red-700 hover:border-red-800 transition-colors disabled:opacity-50"
                 >
                   {isDeleting ? "Deleting..." : "Delete"}
                 </button>
@@ -163,7 +169,7 @@ function ExpensesList({ items, onDeleteExpense, onEditExpense }) {
         )}
       </AnimatePresence>
 
-      {/* Edit modal */}
+      {/* Edit modal — shown when the user clicks Edit in the choice modal */}
       <AnimatePresence>
         {selectedExpense && isEditing && (
           <motion.div
@@ -183,9 +189,7 @@ function ExpensesList({ items, onDeleteExpense, onEditExpense }) {
 
               <div className="flex flex-col gap-3">
                 <div>
-                  <label className="block text-sm text-gray-400 mb-1">
-                    Title
-                  </label>
+                  <label className="block text-sm text-gray-400 mb-1">Title</label>
                   <input
                     type="text"
                     value={editTitle}
@@ -194,9 +198,7 @@ function ExpensesList({ items, onDeleteExpense, onEditExpense }) {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-400 mb-1">
-                    Amount
-                  </label>
+                  <label className="block text-sm text-gray-400 mb-1">Amount</label>
                   <input
                     type="number"
                     min="0.01"
@@ -210,9 +212,7 @@ function ExpensesList({ items, onDeleteExpense, onEditExpense }) {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm  text-gray-400 mb-1">
-                    Date
-                  </label>
+                  <label className="block text-sm text-gray-400 mb-1">Date</label>
                   <DatePicker
                     selected={editDate}
                     onChange={(date) => setEditDate(date)}
@@ -220,9 +220,7 @@ function ExpensesList({ items, onDeleteExpense, onEditExpense }) {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm  text-gray-400 mb-1">
-                    Type
-                  </label>
+                  <label className="block text-sm text-gray-400 mb-1">Type</label>
                   <div className="relative">
                     <select
                       value={editType}
@@ -232,15 +230,11 @@ function ExpensesList({ items, onDeleteExpense, onEditExpense }) {
                       <option value="Income">Income</option>
                       <option value="Expense">Expense</option>
                     </select>
-                    <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-white">
-                      ▾
-                    </span>
+                    <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-white">▾</span>
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-400 mb-1">
-                    Category
-                  </label>
+                  <label className="block text-sm text-gray-400 mb-1">Category</label>
                   <div className="relative">
                     <select
                       value={editCategory}
@@ -248,14 +242,10 @@ function ExpensesList({ items, onDeleteExpense, onEditExpense }) {
                       className="w-full border rounded-xl px-3 py-2 bg-[#181C14] cursor-pointer text-white appearance-none hover:border-green-600 focus:outline-none pr-8"
                     >
                       {categories.map((cat) => (
-                        <option key={cat} value={cat} className="text-white">
-                          {cat}
-                        </option>
+                        <option key={cat} value={cat} className="text-white">{cat}</option>
                       ))}
                     </select>
-                    <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-white">
-                      ▾
-                    </span>
+                    <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-white">▾</span>
                   </div>
                 </div>
               </div>
@@ -271,7 +261,7 @@ function ExpensesList({ items, onDeleteExpense, onEditExpense }) {
                 <button
                   onClick={handleSaveEdit}
                   disabled={isSaving}
-                  className="px-4 py-2  text-white rounded-lg border cursor-pointer hover:bg-green-900 hover:border-green-950 transition-colors disabled:opacity-50"
+                  className="px-4 py-2 text-white rounded-lg border cursor-pointer hover:bg-green-900 hover:border-green-950 transition-colors disabled:opacity-50"
                 >
                   {isSaving ? "Saving..." : "Save Changes"}
                 </button>

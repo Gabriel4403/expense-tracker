@@ -5,6 +5,8 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
+// Form for adding a new income or expense record
+// Shows as a modal overlay triggered by the "+ Add Record" button
 function ExpenseForm({ onSaveExpenseData, setBalance }) {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
@@ -33,6 +35,7 @@ function ExpenseForm({ onSaveExpenseData, setBalance }) {
     setShowForm(false);
   }
 
+  // Category options change depending on whether the type is Income or Expense
   const expenseCategories = [
     "Food & Drinks",
     "Shopping",
@@ -51,10 +54,13 @@ function ExpenseForm({ onSaveExpenseData, setBalance }) {
     enteredType === "Income" ? incomeCategories : expenseCategories;
 
   async function submitExpenseHandler() {
+    // Prevent double submission
     if (isSubmitting) return;
     setIsSubmitting(true);
     try {
       const amount = +enteredAmount;
+
+      // Build the expense object with a unique ID based on timestamp
       const expenseData = {
         id: `${Date.now()}-${Math.floor(Math.random() * 10000)}`,
         title: enteredTitle,
@@ -73,10 +79,12 @@ function ExpenseForm({ onSaveExpenseData, setBalance }) {
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
 
+      // Update local wallet balance immediately without refetching
       setBalance((prev) =>
         enteredType === "Income" ? prev + amount : prev - amount,
       );
 
+      // Reset form fields
       setEnteredTitle("");
       setEnteredAmount("");
       setEnteredCategory("");
@@ -98,16 +106,17 @@ function ExpenseForm({ onSaveExpenseData, setBalance }) {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="h-full bg-[#181C14] border-2 border-[#181C14] py-3  rounded-2xl shadow-xl flex items-center justify-center"
+        className="h-full bg-[#181C14] border-2 border-[#181C14] py-3 rounded-2xl shadow-xl flex items-center justify-center"
       >
         <button
           type="button"
           onClick={() => setShowForm(true)}
-          className="border-2 border-white rounded-3xl cursor-pointer text-2xl px- py-3 font-bold text-white hover:bg-green-900 transition hover:border-green-950"
+          className="border-2 border-white rounded-2xl cursor-pointer text-2xl px-2 py-3 font-bold text-white hover:bg-green-900 transition hover:border-green-950"
         >
           + Add Record
         </button>
       </motion.div>
+
       {/* Form Modal overlay */}
       <AnimatePresence>
         {showForm && (
@@ -116,7 +125,7 @@ function ExpenseForm({ onSaveExpenseData, setBalance }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={closeFormHandler} 
+            onClick={closeFormHandler}
           >
             <motion.div
               className="bg-[#181C14] border-2 border-white text-white rounded-3xl shadow-xl p-8 w-full max-w-lg"
@@ -172,7 +181,7 @@ function ExpenseForm({ onSaveExpenseData, setBalance }) {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm  text-gray-400 mb-1">
+                  <label className="block text-sm text-gray-400 mb-1">
                     Type
                   </label>
                   <div className="relative">
@@ -182,10 +191,10 @@ function ExpenseForm({ onSaveExpenseData, setBalance }) {
                       className={`w-full border rounded-xl px-3 py-2 cursor-pointer bg-[#181C14] appearance-none hover:border-green-600 focus:outline-none pr-8
                         ${enteredType === "" ? "text-gray-500" : "text-white"}`}
                     >
-                      <option value=""  disabled hidden>
+                      <option value="" disabled hidden>
                         Select Type
                       </option>
-                      <option className="text-white"  value="Income">
+                      <option className="text-white" value="Income">
                         Income
                       </option>
                       <option className="text-white" value="Expense">

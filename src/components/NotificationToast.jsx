@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 
+
 function NotificationToast({ message, show }) {
   return (
     <AnimatePresence>

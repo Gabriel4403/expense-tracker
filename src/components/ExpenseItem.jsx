@@ -1,6 +1,8 @@
 import ExpenseDate from "./ExpenseDate";
 import Card from "./Card";
 
+// Displays a single expense or income record with date, title, category, and amount
+// Green background on amount for income, red for expense
 function ExpenseItem({ date, title, amount, category, type }) {
   return (
     <div>
@@ -12,6 +14,7 @@ function ExpenseItem({ date, title, amount, category, type }) {
             <p className="font-bold text-[#141010] text-sm sm:text-base">Category- {category}</p>
           </div>
         </div>
+        {/* Amount chip — color indicates income (green) or expense (red) */}
         <div
           className={`self-center sm:self-auto text-center text-white text-base font-bold border border-white p-2 px-4 rounded-[12px] sm:text-xl sm:px-6 sm:py-2
   ${type === "Income" ? "bg-green-700" : "bg-red-700"}`}

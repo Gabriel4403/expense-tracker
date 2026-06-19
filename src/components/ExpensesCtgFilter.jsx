@@ -1,3 +1,4 @@
+// All possible categories combining both expense and income types
 const allCategories = [
   "Food & Drinks",
   "Shopping",
@@ -11,6 +12,7 @@ const allCategories = [
   "Other Income",
 ];
 
+// Dropdown filter that lets the user view expenses by a specific category
 function ExpensesCtgFilter(props) {
   function filterCategoryHandler(event) {
     props.onChangeCategory(event.target.value);
@@ -26,6 +28,7 @@ function ExpensesCtgFilter(props) {
             onChange={filterCategoryHandler}
             value={props.selected}
           >
+            {/* Default option shows all records */}
             <option value="ALL" style={{ backgroundColor: "#181C14", textAlign: "center" }}>
               All Categories
             </option>

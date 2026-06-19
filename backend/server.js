@@ -37,7 +37,7 @@ app.get('/api/expenses', (req, res) => {
   }
 });
 
-// Add a new income or expense entry and update the wallet
+// POST new expense/income record and update wallet 
 app.post('/api/expenses', (req, res) => {
   try {
     const newEntry = { ...req.body };
@@ -69,7 +69,7 @@ app.get('/api/wallet', (req, res) => {
   }
 });
 
-// Manually overwrite the wallet balance 
+// PUT manually overwrite wallet balance 
 app.put('/api/wallet', (req, res) => {
   try {
     const { balance } = req.body;
@@ -82,7 +82,7 @@ app.put('/api/wallet', (req, res) => {
   }
 });
 
-// Edit an existing expense/income entry
+// PUT edit an existing expense/income entry
 app.put('/api/expenses/:id', (req, res) => {
   try {
     const { id } = req.params;
@@ -112,7 +112,7 @@ app.put('/api/expenses/:id', (req, res) => {
   }
 });
 
-// Delete an entry and reverse its effect on the wallet balance
+// DELETE an entry and update the wallet balance
 app.delete('/api/expenses/:id', (req, res) => {
   try {
     const { id } = req.params;

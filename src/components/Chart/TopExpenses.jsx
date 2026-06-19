@@ -1,13 +1,15 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { motion } from "framer-motion";
 
-function TopExpenses({ expenses }) {
+// Shows a horizontal bar chart of the top 2 spending categories for the current month
+function TopExpensesChart({ expenses }) {
   const now = new Date();
   const currentMonth = now.getMonth();
   const currentYear = now.getFullYear();
 
   const categoryTotals = {};
 
+  // Sum up expenses per category for the current month only, skipping income entries
   expenses.forEach((expense) => {
     if (expense.type !== "Expense") return;
     const date = new Date(expense.date);
@@ -15,12 +17,15 @@ function TopExpenses({ expenses }) {
     categoryTotals[expense.category] = (categoryTotals[expense.category] || 0) + expense.amount;
   });
 
+  // Sort by total amount descending and take only the top 2 categories
   const top2 = Object.entries(categoryTotals)
     .sort(([, a], [, b]) => b - a)
     .slice(0, 2)
     .map(([name, value]) => ({ name, value }));
 
   const monthName = now.toLocaleString("en-US", { month: "long", year: "numeric" });
+
+  // Red for #1, orange for #2
   const colors = ["#ef4444", "#f97316"];
 
   return (
@@ -62,4 +67,4 @@ function TopExpenses({ expenses }) {
   );
 }
 
-export default TopExpenses;
+export default TopExpensesChart;

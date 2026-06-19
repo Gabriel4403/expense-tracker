@@ -8,12 +8,14 @@ import IncomePieChart from "./Chart/IncomePieChart";
 import ExpensesLineChart from "./Chart/ExpensesLineChart";
 import IncomeLineChart from "./Chart/IncomeLineChart";
 
+// Main expenses section — contains filters, chart toggles, the selected chart, and the expenses list
 function Expenses({ items, onDeleteExpense, onEditExpense }) {
   const [filteredYear, setFilteredYear] = useState("ALL");
   const [filteredCategory, setFilteredCategory] = useState("ALL");
   const [activeData, setActiveData] = useState("expenses"); // expenses or income
-  const [activeChart, setActiveChart] = useState("pie"); // pie or bar
+  const [activeChart, setActiveChart] = useState("pie"); // pie or line
 
+  // Apply year and category filters to the full list
   const filteredExpenses = items.filter((expense) => {
     const yearMatches =
       filteredYear === "ALL" ||
@@ -23,6 +25,7 @@ function Expenses({ items, onDeleteExpense, onEditExpense }) {
     return yearMatches && categoryMatches;
   });
 
+  // Sort filtered results by date, newest first
   const sortedExpenses = filteredExpenses.sort((a, b) => b.date - a.date);
 
   return (
@@ -36,7 +39,7 @@ function Expenses({ items, onDeleteExpense, onEditExpense }) {
         onChangeFilter={setFilteredYear}
       />
 
-      {/* Expenses / Income toggle */}
+      {/* Expenses / Income toggle — switches which data set the chart shows */}
       <div className="flex justify-center gap-4 mt-6">
         <button
           onClick={() => setActiveData("expenses")}
@@ -60,7 +63,7 @@ function Expenses({ items, onDeleteExpense, onEditExpense }) {
         </button>
       </div>
 
-      {/* Pie / Bar toggle */}
+      {/* Pie / Line chart toggle */}
       <div className="flex justify-center gap-4 mt-3">
         <button
           onClick={() => setActiveChart("pie")}
@@ -84,11 +87,11 @@ function Expenses({ items, onDeleteExpense, onEditExpense }) {
         </button>
       </div>
 
-      {/* Chart display */}
+      {/* Render the correct chart based on active data type and chart type */}
       {activeData === "expenses" && activeChart === "pie" && <ExpensesPieChart expenses={filteredExpenses} />}
-{activeData === "expenses" && activeChart === "bar" && <ExpensesLineChart expenses={filteredExpenses} />}
-{activeData === "income" && activeChart === "pie" && <IncomePieChart expenses={filteredExpenses} />}
-{activeData === "income" && activeChart === "bar" && <IncomeLineChart expenses={filteredExpenses} />}
+      {activeData === "expenses" && activeChart === "bar" && <ExpensesLineChart expenses={filteredExpenses} />}
+      {activeData === "income" && activeChart === "pie" && <IncomePieChart expenses={filteredExpenses} />}
+      {activeData === "income" && activeChart === "bar" && <IncomeLineChart expenses={filteredExpenses} />}
 
       <ExpensesList
         items={sortedExpenses}

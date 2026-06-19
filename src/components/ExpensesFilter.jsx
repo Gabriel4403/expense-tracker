@@ -1,5 +1,7 @@
+// Available years for filtering — update this list as new years are needed
 const allYears = ["2026", "2025", "2024", "2023", "2022"];
 
+// Dropdown filter that lets the user view expenses for a specific year
 function ExpensesFilterYear(props) {
   function filterYearHandler(event) {
     props.onChangeFilter(event.target.value);
@@ -15,6 +17,7 @@ function ExpensesFilterYear(props) {
             onChange={filterYearHandler}
             value={props.selected}
           >
+            {/* Default option shows all years */}
             <option
               value="ALL"
               style={{ backgroundColor: "#181C14", textAlign: "center" }}

@@ -1,8 +1,10 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
+// Shows a line chart of total expenses grouped by month, sorted chronologically
 function ExpensesLineChart({ expenses }) {
   const monthTotals = {};
 
+  // Group expense amounts by "YYYY-MM" key, skipping non-expense entries
   expenses.forEach((expense) => {
     if (expense.type !== "Expense") return;
     const date = new Date(expense.date);
@@ -10,6 +12,7 @@ function ExpensesLineChart({ expenses }) {
     monthTotals[key] = (monthTotals[key] || 0) + expense.amount;
   });
 
+  // Sort months chronologically and convert to array for Recharts
   const data = Object.entries(monthTotals)
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([month, value]) => ({ month, value }));
@@ -20,6 +23,7 @@ function ExpensesLineChart({ expenses }) {
         <ResponsiveContainer width="100%" height={400}>
           <LineChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+            {/* Angled labels to prevent overlap on narrow screens */}
             <XAxis
               dataKey="month"
               tick={{ fill: "white", fontSize: 12 }}

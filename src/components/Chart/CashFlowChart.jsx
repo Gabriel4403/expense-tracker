@@ -1,6 +1,8 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell, ResponsiveContainer } from "recharts";
 import { motion } from "framer-motion";
 
+
+// Display horizontal bar chart for income , expense , and net cashflow
 function CashflowChart({ expenses }) {
   const now = new Date();
   const currentMonth = now.getMonth();
@@ -8,6 +10,8 @@ function CashflowChart({ expenses }) {
 
   const monthData = { income: 0, expenses: 0 };
 
+
+  // Filter to current month only 
   expenses.forEach((expense) => {
     const date = new Date(expense.date);
     if (date.getMonth() !== currentMonth || date.getFullYear() !== currentYear) return;
@@ -15,16 +19,20 @@ function CashflowChart({ expenses }) {
     else monthData.expenses += expense.amount;
   });
 
+
+  // Net = income - expenses 
   monthData.net = parseFloat((monthData.income - monthData.expenses).toFixed(2));
 
   const monthName = now.toLocaleString("en-US", { month: "long", year: "numeric" });
 
+  // Chart data - net bar turns orange if negative , blue if positive
   const data = [
     { name: "Income", value: monthData.income, fill: "#22c55e" },
     { name: "Expenses", value: monthData.expenses, fill: "#ef4444" },
     { name: "Net", value: monthData.net, fill: monthData.net >= 0 ? "#60a5fa" : "#f97316" },
   ];
 
+  // Only render the chart if there is at least data this month
   const hasData = monthData.income > 0 || monthData.expenses > 0;
 
   return (
