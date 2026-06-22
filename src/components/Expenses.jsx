@@ -29,7 +29,7 @@ function Expenses({ items, onDeleteExpense, onEditExpense }) {
   const sortedExpenses = filteredExpenses.sort((a, b) => b.date - a.date);
 
   return (
-    <Card className="p-4 bg-[#181C14] mt-28 sm:mt-45 mx-auto w-[50rem] max-w-[92%] rounded-2xl shadow-xl">
+    <Card className="p-4 bg-[#181C14] mt-28 sm:mt-45 mx-auto w-[48rem] max-w-[92%] rounded-2xl shadow-xl">
       <ExpensesCtgFilter
         selected={filteredCategory}
         onChangeCategory={setFilteredCategory}
